@@ -1,0 +1,4 @@
+MGOneInTheChamber
+=================
+
+OneInTheChamber in MinigamesLib
