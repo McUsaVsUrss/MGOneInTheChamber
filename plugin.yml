@@ -1,0 +1,12 @@
+name: MGOneInTheChamber
+main: com.comze_instancelabs.oitc.Main
+version: 1.0.0
+author: InstanceLabs
+softdepend: [Vault, MinigamesLib]
+depend: [MinigamesLib]
+loadbefore: [MinigamesLib]
+commands:
+   oitc:
+      description: Main command
+      usage: /oitc [action]
+      aliases: [mgoitc]
