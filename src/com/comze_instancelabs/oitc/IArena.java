@@ -30,5 +30,11 @@ public class IArena extends Arena {
 	public void spectate(String playername) {
 		//
 	}
+	
+	@Override
+	public void stop(){
+		kills.clear();
+		super.stop();
+	}
 
 }
