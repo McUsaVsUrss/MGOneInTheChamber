@@ -142,26 +142,27 @@ public class Main extends JavaPlugin implements Listener {
 					p.setHealth(20D);
 					if (p.getKiller() instanceof Player) {
 						Player killer = (Player) p.getKiller();
-						if (a.kills.containsKey(killer.getName())) {
-							int i = a.kills.get(killer.getName());
-							if (i >= this.getConfig().getInt("config.kills_to_win") - 1) {
-								for (String p_ : a.getAllPlayers()) {
-									if (!p_.equalsIgnoreCase(killer.getName())) {
-										pli.global_lost.put(p_, a);
+						if (!killer.getName().equalsIgnoreCase(p.getName())) {
+							if (a.kills.containsKey(killer.getName())) {
+								int i = a.kills.get(killer.getName());
+								if (i >= this.getConfig().getInt("config.kills_to_win") - 1) {
+									for (String p_ : a.getAllPlayers()) {
+										if (!p_.equalsIgnoreCase(killer.getName())) {
+											pli.global_lost.put(p_, a);
+										}
 									}
+									a.stop();
+									return;
 								}
-								a.stop();
-								return;
+								a.kills.put(killer.getName(), i + 1);
+							} else {
+								a.kills.put(killer.getName(), 1);
 							}
-							a.kills.put(killer.getName(), i + 1);
-						} else {
-							a.kills.put(killer.getName(), 1);
+							a.onEliminated(p.getName());
 						}
 						killer.getInventory().addItem(new ItemStack(Material.ARROW));
 						killer.updateInventory();
 						Util.teleportPlayerFixed(p, a.getSpawns().get(r.nextInt(a.getSpawns().size())));
-						a.onEliminated(p.getName());
-						// p.sendMessage(ChatColor.RED + "You have been killed by " + ChatColor.DARK_RED + killer.getName() + ChatColor.RED + ".");
 						scoreboard.updateScoreboard(a);
 						Bukkit.getScheduler().runTaskLater(this, new Runnable() {
 							public void run() {
@@ -187,23 +188,28 @@ public class Main extends JavaPlugin implements Listener {
 					attacker = (Player) projectile.getShooter();
 					if (pli.global_players.containsKey(p.getName()) && pli.global_players.containsKey(attacker.getName())) {
 						IArena a = (IArena) pli.global_players.get(p.getName());
-						if (a.kills.containsKey(attacker.getName())) {
-							int i = a.kills.get(attacker.getName());
-							if (i >= this.getConfig().getInt("config.kills_to_win") - 1) {
-								for (String p_ : a.getAllPlayers()) {
-									if (!p_.equalsIgnoreCase(attacker.getName())) {
-										pli.global_lost.put(p_, a);
+						if (!attacker.getName().equalsIgnoreCase(p.getName())) {
+							if (a.kills.containsKey(attacker.getName())) {
+								int i = a.kills.get(attacker.getName());
+								if (i >= this.getConfig().getInt("config.kills_to_win") - 1) {
+									for (String p_ : a.getAllPlayers()) {
+										if (!p_.equalsIgnoreCase(attacker.getName())) {
+											pli.global_lost.put(p_, a);
+										}
 									}
+									a.stop();
+									return;
 								}
-								a.stop();
-								return;
+								a.kills.put(attacker.getName(), i + 1);
+							} else {
+								a.kills.put(attacker.getName(), 1);
 							}
-							a.kills.put(attacker.getName(), i + 1);
+							a.onEliminated(p.getName());
 						} else {
-							a.kills.put(attacker.getName(), 1);
+							event.setCancelled(true);
+							return;
 						}
 						Util.teleportPlayerFixed(p, a.getSpawns().get(r.nextInt(a.getSpawns().size())));
-						a.onEliminated(p.getName());
 						attacker.getInventory().addItem(new ItemStack(Material.ARROW));
 						attacker.updateInventory();
 						pli.getClassesHandler().getClass(p.getName());
