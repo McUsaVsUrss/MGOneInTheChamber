@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -67,6 +68,18 @@ public class IArenaScoreboard extends ArenaScoreboard {
 
 	@Override
 	public void removeScoreboard(String arena, Player p) {
+		if (ascore.containsKey(arena)) {
+			try {
+				Scoreboard sc = ascore.get(arena);
+				for (OfflinePlayer player : sc.getPlayers()) {
+					sc.resetScores(player);
+				}
+			} catch (Exception e) {
+				if (MinigamesAPI.debug) {
+					e.printStackTrace();
+				}
+			}
+		}
 		ScoreboardManager manager = Bukkit.getScoreboardManager();
 		Scoreboard sc = manager.getNewScoreboard();
 		sc.clearSlot(DisplaySlot.SIDEBAR);

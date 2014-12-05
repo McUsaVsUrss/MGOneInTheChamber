@@ -158,6 +158,7 @@ public class Main extends JavaPlugin implements Listener {
 							} else {
 								a.kills.put(killer.getName(), 1);
 							}
+							a.lastdamager.put(p.getName(), killer.getName());
 							a.onEliminated(p.getName());
 						}
 						killer.getInventory().addItem(new ItemStack(Material.ARROW));
@@ -204,6 +205,7 @@ public class Main extends JavaPlugin implements Listener {
 							} else {
 								a.kills.put(attacker.getName(), 1);
 							}
+							a.lastdamager.put(p.getName(), attacker.getName());
 							a.onEliminated(p.getName());
 						} else {
 							event.setCancelled(true);
