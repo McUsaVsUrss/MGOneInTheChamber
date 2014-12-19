@@ -1,6 +1,6 @@
 name: MGOneInTheChamber
 main: com.comze_instancelabs.oitc.Main
-version: 1.0.2
+version: 1.0.3
 author: InstanceLabs
 softdepend: [Vault, MinigamesLib]
 depend: [MinigamesLib]
