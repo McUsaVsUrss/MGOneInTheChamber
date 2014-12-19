@@ -178,6 +178,8 @@ public class Main extends JavaPlugin implements Listener {
 		}
 	}
 
+	boolean isSupported = false;
+	
 	@EventHandler
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		if (event.getEntity() instanceof Player) {
@@ -185,6 +187,17 @@ public class Main extends JavaPlugin implements Listener {
 			Player attacker = null;
 			if (event.getDamager() instanceof Projectile) {
 				Projectile projectile = (Projectile) event.getDamager();
+				if(!isSupported){
+					for (Method m : projectile.getClass().getDeclaredMethods()) {
+						if (m.getName().equalsIgnoreCase("getShooter")) {
+							isSupported = true;
+						}
+					}
+					if(!isSupported){
+						Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Your Bukkit version is too old and doesn't support getting the shooter of a projectile, please update!");
+						return;
+					}
+				}
 				if (projectile.getShooter() instanceof Player) {
 					attacker = (Player) projectile.getShooter();
 					if (pli.global_players.containsKey(p.getName()) && pli.global_players.containsKey(attacker.getName())) {
