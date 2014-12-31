@@ -48,7 +48,6 @@ public class IArenaScoreboard extends ArenaScoreboard {
 			// ascore.get(arena.getName()).resetScores(Bukkit.getOfflinePlayer(Integer.toString(arena.kills.get(p_) + " "));
 
 			aobjective.get(arena.getName()).getScore(Bukkit.getOfflinePlayer(p_)).setScore(i);
-
 		}
 
 		for (String p_ : arena.getAllPlayers()) {

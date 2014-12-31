@@ -1,42 +1,33 @@
 package com.comze_instancelabs.oitc;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
-import org.bukkit.FireworkEffect.Type;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.FireworkMeta;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.comze_instancelabs.minigamesapi.Arena;
@@ -63,6 +54,38 @@ public class Main extends JavaPlugin implements Listener {
 
 	public void onEnable() {
 		m = this;
+
+		// TODO test
+		// Copy over old MGOneInTheChamber configs to MGOITC config folder
+		File f = new File(this.getDataFolder().getParent() + "\\MGOneInTheChamber\\arenas.yml");
+		File f2 = new File(this.getDataFolder() + "\\arenas.yml");
+		System.out.println(f + " " + f2);
+		try {
+			if (f.exists()) {
+				if (!f2.exists()) {
+					f2.createNewFile();
+				}
+
+				FileChannel source = null;
+				FileChannel destination = null;
+
+				try {
+					source = new FileInputStream(f).getChannel();
+					destination = new FileOutputStream(f2).getChannel();
+					destination.transferFrom(source, 0, source.size());
+				} finally {
+					if (source != null) {
+						source.close();
+					}
+					if (destination != null) {
+						destination.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		api = MinigamesAPI.getAPI().setupAPI(this, "OneInTheChamber", IArena.class, new ArenasConfig(this), new MessagesConfig(this), new IClassesConfig(this), new StatsConfig(this, false), new DefaultConfig(this, false), true);
 		PluginInstance pinstance = api.pinstances.get(this);
 		pinstance.addLoadedArenas(loadArenas(this, pinstance.getArenasConfig()));
@@ -85,6 +108,7 @@ public class Main extends JavaPlugin implements Listener {
 		this.saveConfig();
 
 		r = new Random();
+
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -179,7 +203,7 @@ public class Main extends JavaPlugin implements Listener {
 	}
 
 	boolean isSupported = false;
-	
+
 	@EventHandler
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		if (event.getEntity() instanceof Player) {
@@ -187,7 +211,7 @@ public class Main extends JavaPlugin implements Listener {
 			Player attacker = null;
 			if (event.getDamager() instanceof Projectile) {
 				Projectile projectile = (Projectile) event.getDamager();
-				if(!isSupported){
+				if (!isSupported) {
 					for (Method m : projectile.getClass().getDeclaredMethods()) {
 						if (m.getName().equalsIgnoreCase("getshooter")) {
 							isSupported = true;
@@ -198,7 +222,7 @@ public class Main extends JavaPlugin implements Listener {
 							isSupported = true;
 						}
 					}
-					if(!isSupported){
+					if (!isSupported) {
 						Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Your Bukkit version is too old and doesn't support getting the shooter of a projectile, please update!");
 						return;
 					}
