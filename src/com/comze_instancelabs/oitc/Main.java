@@ -189,7 +189,12 @@ public class Main extends JavaPlugin implements Listener {
 				Projectile projectile = (Projectile) event.getDamager();
 				if(!isSupported){
 					for (Method m : projectile.getClass().getDeclaredMethods()) {
-						if (m.getName().equalsIgnoreCase("getShooter")) {
+						if (m.getName().equalsIgnoreCase("getshooter")) {
+							isSupported = true;
+						}
+					}
+					for (Method m : projectile.getClass().getMethods()) {
+						if (m.getName().equalsIgnoreCase("getshooter")) {
 							isSupported = true;
 						}
 					}
