@@ -55,7 +55,6 @@ public class Main extends JavaPlugin implements Listener {
 	public void onEnable() {
 		m = this;
 
-		// TODO test
 		// Copy over old MGOneInTheChamber configs to MGOITC config folder
 		File f = new File(this.getDataFolder().getParent() + "\\MGOneInTheChamber\\arenas.yml");
 		File f2 = new File(this.getDataFolder() + "\\arenas.yml");

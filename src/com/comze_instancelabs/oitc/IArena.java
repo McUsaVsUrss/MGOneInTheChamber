@@ -30,10 +30,13 @@ public class IArena extends Arena {
 	public void spectate(String playername) {
 		//
 	}
-	
+
 	@Override
-	public void stop(){
+	public void stop() {
 		kills.clear();
+		if (m.scoreboard.ascore.containsKey(this.getInternalName())) {
+			m.scoreboard.ascore.remove(this.getInternalName());
+		}
 		super.stop();
 	}
 
