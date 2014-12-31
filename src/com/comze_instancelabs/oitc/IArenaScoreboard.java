@@ -29,6 +29,7 @@ public class IArenaScoreboard extends ArenaScoreboard {
 
 	public void updateScoreboard(final IArena arena) {
 		for (String p_ : arena.getAllPlayers()) {
+			System.out.println(p_ + " " + arena.getInternalName() + " " + ascore.containsKey(arena.getName()));
 			Player p = Bukkit.getPlayer(p_);
 			if (!ascore.containsKey(arena.getName())) {
 				ascore.put(arena.getName(), Bukkit.getScoreboardManager().getNewScoreboard());
@@ -77,6 +78,10 @@ public class IArenaScoreboard extends ArenaScoreboard {
 				if (MinigamesAPI.debug) {
 					e.printStackTrace();
 				}
+			}
+			ascore.remove(arena);
+			if(aobjective.containsKey(arena)){
+				aobjective.remove(arena);
 			}
 		}
 		ScoreboardManager manager = Bukkit.getScoreboardManager();

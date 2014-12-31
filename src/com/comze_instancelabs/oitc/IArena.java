@@ -37,6 +37,9 @@ public class IArena extends Arena {
 		if (m.scoreboard.ascore.containsKey(this.getInternalName())) {
 			m.scoreboard.ascore.remove(this.getInternalName());
 		}
+		if (m.scoreboard.aobjective.containsKey(this.getInternalName())) {
+			m.scoreboard.aobjective.remove(this.getInternalName());
+		}
 		super.stop();
 	}
 
