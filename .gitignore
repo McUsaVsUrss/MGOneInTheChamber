@@ -6,3 +6,5 @@ bin
 *.rar
 *.zip
 *.iml
+out
+.idea

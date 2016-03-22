@@ -56,7 +56,7 @@ public class Main extends JavaPlugin implements Listener {
 		m = this;
 
 		// Copy over old MGOneInTheChamber configs to MGOITC config folder
-		File f = new File(this.getDataFolder().getParent() + "\\MGOneInTheChamber\\arenas.yml");
+		/*File f = new File(this.getDataFolder().getParent() + "\\MGOneInTheChamber\\arenas.yml");
 		File f2 = new File(this.getDataFolder() + "\\arenas.yml");
 		System.out.println(f + " " + f2);
 		try {
@@ -83,7 +83,7 @@ public class Main extends JavaPlugin implements Listener {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 
 		api = MinigamesAPI.getAPI().setupAPI(this, "OneInTheChamber", IArena.class, new ArenasConfig(this), new MessagesConfig(this), new IClassesConfig(this), new StatsConfig(this, false), new DefaultConfig(this, false), true);
 		PluginInstance pinstance = api.pinstances.get(this);

@@ -18,24 +18,24 @@ public class IClassesConfig extends ClassesConfig {
 		this.getConfig().addDefault("config.kits.default.money_amount", 100);
 		this.getConfig().addDefault("config.kits.default.permission_node", "minigames.kits.default");
 
-		this.getConfig().addDefault("config.kits.pro.name", "Pro");
-		this.getConfig().addDefault("config.kits.pro.items", "261*1;262*2;258*1");
+		/*this.getConfig().addDefault("config.kits.pro.name", "Pro");
+		this.getConfig().addDefault("config.kits.pro.items", "261*1;262*1;258*1;298*1;299*1;300*1;301*1");
 		this.getConfig().addDefault("config.kits.pro.icon", "262*2");
 		this.getConfig().addDefault("config.kits.pro.lore", "The Pro class.");
-		this.getConfig().addDefault("config.kits.pro.requires_money", true);
-		this.getConfig().addDefault("config.kits.pro.requires_permission", false);
+		this.getConfig().addDefault("config.kits.pro.requires_money", false);
+		this.getConfig().addDefault("config.kits.pro.requires_permission", true);
 		this.getConfig().addDefault("config.kits.pro.money_amount", 100);
 		this.getConfig().addDefault("config.kits.pro.permission_node", "minigames.kits.pro");
 
-		this.getConfig().addDefault("config.kits.uber.name", "Uber");
-		this.getConfig().addDefault("config.kits.uber.items", "261*1;262*3;258*1");
+		this.getConfig().addDefault("config.kits.uber.name", "Pro Pro");
+		this.getConfig().addDefault("config.kits.uber.items", "261*1;262*1;267*1;302*1;303*1;304*1;305*1");
 		this.getConfig().addDefault("config.kits.uber.icon", "262*3");
-		this.getConfig().addDefault("config.kits.uber.lore", "The Uber class.");
-		this.getConfig().addDefault("config.kits.uber.requires_money", true);
-		this.getConfig().addDefault("config.kits.uber.requires_permission", false);
+		this.getConfig().addDefault("config.kits.uber.lore", "The Pro Pro class.");
+		this.getConfig().addDefault("config.kits.uber.requires_money", false);
+		this.getConfig().addDefault("config.kits.uber.requires_permission", true);
 		this.getConfig().addDefault("config.kits.uber.money_amount", 100);
-		this.getConfig().addDefault("config.kits.uber.permission_node", "minigames.kits.uber");
-		
+		this.getConfig().addDefault("config.kits.uber.permission_node", "minigames.kits.propro");*/
+
 		this.getConfig().options().copyDefaults(true);
 		this.saveConfig();
 	}
